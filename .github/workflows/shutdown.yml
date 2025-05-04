@@ -1,0 +1,16 @@
+name: Auto Shutdown Codespace
+
+on:
+  schedule:
+    - cron: '0 */24 * * *'  # Раз в 6 часов
+
+jobs:
+  shutdown:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Завершить Codespace
+        run: |
+          curl -X POST \
+          -H "Authorization: Bearer ${{ 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 }}" \
+          -d '{"state":"stopped"}' \
+          "https://api.github.com/user/codespaces/down/stop"
